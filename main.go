@@ -1,36 +1,65 @@
 /*
-Hands-on exercise #61 - method
-	● Create a user defined struct with
-		○ the identifier “person”
-		○ the fields:
-			■ first
-			■ age
-	● attach a method to type person with
-		○ the identifier “speak”
-		○ the method should have the person say their name and age
-	● create a value of type person
-	● call the method from the value of type person
+Hands-on exercise #62 - interfaces
+	● create a type SQUARE
+		○ length float64
+		○ width float64
+	● create a type CIRCLE
+		○ radius float64
+	● attach a method to each that calculates AREA and returns it
+		○ circle area= π r 2
+			■ math.Pi
+			■ math.Pow
+		○ square area = L * W
+	● create a type SHAPE that defines an interface as anything that has the AREA method
+	● create a func INFO which takes type shape and then prints the area
+	● create a value of type square
+	● create a value of type circle
+	● use func info to print the area of square
+	● use func info to print the area of circle
 */
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-type Person struct {
-	first string
-	age   int
+type square struct {
+	length float64
+	width  float64
 }
 
-func (p Person) speak() {
-	fmt.Printf("My name is %v and my age is %v years old\n", p.first, p.age)
+type circle struct {
+	radius float64
+}
+
+func (s square) area() float64 {
+	return s.length * s.width
+}
+
+func (c circle) area() float64 {
+	return math.Pi * math.Pow(c.radius, 2)
+}
+
+type shape interface {
+	area() float64
+}
+
+func info(s shape) {
+	fmt.Println("The area of the Shape is", s.area())
 }
 
 func main() {
 
-	p := Person{
-		first: "James",
-		age:   42,
+	s := square{
+		length: 3,
+		width:  4,
 	}
+	info(s)
 
-	p.speak()
+	c := circle{
+		radius: 10,
+	}
+	info(c)
 }
