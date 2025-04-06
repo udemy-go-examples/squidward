@@ -1,22 +1,36 @@
 /*
-Hands-on exercise #60 - defer func
-	● “defer” multiple functions in main
-		○ show that a deferred func runs after the func containing it exits.
-		○ determine the order in which the multiple defer funcs run
+Hands-on exercise #61 - method
+	● Create a user defined struct with
+		○ the identifier “person”
+		○ the fields:
+			■ first
+			■ age
+	● attach a method to type person with
+		○ the identifier “speak”
+		○ the method should have the person say their name and age
+	● create a value of type person
+	● call the method from the value of type person
 */
 
 package main
 
 import "fmt"
 
+type Person struct {
+	first string
+	age   int
+}
+
+func (p Person) speak() {
+	fmt.Printf("My name is %v and my age is %v years old\n", p.first, p.age)
+}
+
 func main() {
 
-	// deferred function run LIFO order
-	fmt.Println("Start of main")
-	defer fmt.Println("This is the first deferred function call")
-	defer fmt.Println("This is the second deferred function call")
-	defer fmt.Println("This is the third deferred function call")
-	defer fmt.Println("This is the fourth deferred function call")
+	p := Person{
+		first: "James",
+		age:   42,
+	}
 
-	fmt.Println("End of main")
+	p.speak()
 }
