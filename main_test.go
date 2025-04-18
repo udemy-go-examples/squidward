@@ -2,34 +2,22 @@ package main
 
 import "testing"
 
-func TestDoMathAdd(t *testing.T) {
-	actual := doMath(5, 5, add)
-	expected := 10
-	if actual != expected {
-		t.Errorf("Sum was incorrect, got: %v, want: %v.", actual, 10)
+func TestGetUser(t *testing.T) {
+	md := &MockDatastore{
+		Users: map[int]User{
+			2: {ID: 2, First: "Jenny"},
+		},
 	}
-}
-
-func TestAdd(t *testing.T) {
-	actual := add(9, 3)
-	expected := 12
-	if actual != expected {
-		t.Errorf("Sum was incorrect, got: %v, want: %v.", actual, 10)
+	s := &Service{
+		ds: md,
 	}
-}
 
-func TestDoMathSubtract(t *testing.T) {
-	actual := doMath(15, 5, subtract)
-	expected := 10
-	if actual != expected {
-		t.Errorf("Sum was incorrect, got: %v, want: %v.", actual, 10)
+	u, err := s.GetUser(2)
+	if err != nil {
+		t.Errorf("got error: %v", err)
 	}
-}
 
-func TestSubtract(t *testing.T) {
-	actual := subtract(9, 6)
-	expected := 3
-	if actual != expected {
-		t.Errorf("Sum was incorrect, got: %v, want: %v.", actual, 10)
+	if u.First != "Jenny" {
+		t.Errorf("got: %s, want: %s", u.First, "Jenny")
 	}
 }
