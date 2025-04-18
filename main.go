@@ -1,7 +1,12 @@
 /*
-Hands-on exercise #69 - func expression
+Hands-on exercise #70 - func return
 
-	● Assign a func to a variable, then call that func
+	● Create a func
+		○ which returns a func
+	■ which returns 42
+	● assign the returned func to a variable
+	● call the returned func
+	● print
 */
 package main
 
@@ -9,9 +14,13 @@ import "fmt"
 
 func main() {
 
-	xf := func(value int) string {
-		return fmt.Sprintf("Anonymous function run with value %v", value)
-	}
+	xf := myfunc()
+	fmt.Println(xf())
+}
 
-	fmt.Println(xf(69))
+// returns a function
+func myfunc() func() int {
+	return func() int {
+		return 42
+	}
 }
