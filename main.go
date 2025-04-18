@@ -1,26 +1,54 @@
 /*
-Hands-on exercise #71 - callback
-A “callback” is when we pass a func into a func as an argument. For this exercise,
+Hands-on exercise #72 - closure
 
-	● pass a func into a func as an argument
-		○ func square(n int) int
-		○ printSquare(f func(int)int, int) string
+Closure is when we have “enclosed” the scope of a variable in some code block. For this
+hands-on exercise, create a func which “encloses” the scope of a variable
 */
 package main
 
-import "fmt"
-
-type callbackFunc func(int) int
-
-func square(n int) int {
-	return n * n
-}
-
-func printSquare(f callbackFunc, value int) string {
-	return fmt.Sprintf("Square of %v is %v", value, f(value))
-}
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
+	f := incrementor()
+	fmt.Println(f())
+	fmt.Println(f())
+	fmt.Println(f())
+	fmt.Println(f())
+	fmt.Println(f())
+	fmt.Println(f())
 
-	fmt.Println(printSquare(square, 9))
+	g := incrementor()
+	fmt.Println(g())
+	fmt.Println(g())
+	fmt.Println(g())
+	fmt.Println(g())
+	fmt.Println(g())
+	fmt.Println(g())
+
+	h := powinator(2)
+	fmt.Println(h())
+	fmt.Println(h())
+	fmt.Println(h())
+	fmt.Println(h())
+	fmt.Println(h())
+	fmt.Println(h())
+}
+
+func incrementor() func() int {
+	x := 0
+	return func() int {
+		x++
+		return x
+	}
+}
+
+func powinator(a float64) func() float64 {
+	var c float64
+	return func() float64 {
+		c++
+		return math.Pow(a, c)
+	}
 }
