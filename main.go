@@ -1,54 +1,52 @@
 /*
-Hands-on exercise #72 - closure
-
-Closure is when we have “enclosed” the scope of a variable in some code block. For this
-hands-on exercise, create a func which “encloses” the scope of a variable
+Hands-on exercise #73 - wrapper
 */
 package main
 
 import (
 	"fmt"
-	"math"
+	"time"
 )
 
+// Wrapper function for adding timing information
+func TimedFunction(fn func()) {
+	start := time.Now()
+	fn()
+	elapsed := time.Since(start)
+	fmt.Println("Elapsed time:", elapsed)
+}
+
+// Function to be wrapped
+func MyFunction() {
+	time.Sleep(7 * time.Second) // Simulate some work
+	fmt.Println("MyFunction completed")
+}
 func main() {
-	f := incrementor()
-	fmt.Println(f())
-	fmt.Println(f())
-	fmt.Println(f())
-	fmt.Println(f())
-	fmt.Println(f())
-	fmt.Println(f())
+	// Call the wrapped function
+	//TimedFunction(MyFunction)
 
-	g := incrementor()
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-	fmt.Println(g())
-
-	h := powinator(2)
-	fmt.Println(h())
-	fmt.Println(h())
-	fmt.Println(h())
-	fmt.Println(h())
-	fmt.Println(h())
-	fmt.Println(h())
-}
-
-func incrementor() func() int {
-	x := 0
-	return func() int {
-		x++
-		return x
+	// wrap functions
+	wrappedFunc := func() {
+		TimedFunction(MyFunction)
 	}
+	Logger(wrappedFunc)
+
+	// call function with each item in slice
+	data := []int{1, 2, 3, 4, 5}
+	callbackFunc := func(num int) {
+		fmt.Println("Processing number:", num)
+	}
+	ProcessData(data, callbackFunc)
 }
 
-func powinator(a float64) func() float64 {
-	var c float64
-	return func() float64 {
-		c++
-		return math.Pow(a, c)
+func Logger(f func()) {
+	fmt.Println("Starting execution...")
+	f()
+	fmt.Println("Execution completed.")
+}
+
+func ProcessData(data []int, callback func(int)) {
+	for _, item := range data {
+		callback(item)
 	}
 }
