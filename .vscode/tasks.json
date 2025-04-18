@@ -4,40 +4,28 @@
       {
         "label": "GO INIT",
         "type": "shell",
-        "command": "/usr/local/go/bin/go mod init github.com/ckdcowster/stuff/Go",
+        "command": "go mod init github.com/ckdcowster/${workspaceFolderBasename}",
         "group": "build",
         "options": {
-          "cwd": "${fileDirname}"
-        },
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
+          "cwd": "${workspaceFolder}"
         }
       },
       {
         "label": "GO RUN",
         "type": "shell",
-        "command": "/usr/local/go/bin/go run ${fileBasename}",
+        "command": "go run main.go",
         "group": "build",
         "options": {
-          "cwd": "${fileDirname}"
-        },
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
+          "cwd": "${workspaceFolder}"
         }
       },
       {
         "label": "GO BUILD",
         "type": "shell",
-        "command": "/usr/local/go/bin/go build ${fileBasename}",
+        "command": "go build .",
         "group": "build",
         "options": {
-          "cwd": "${fileDirname}"
-        },
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
+          "cwd": "${workspaceFolder}"
         }
       },
       {
@@ -47,14 +35,10 @@
       {
         "label": "GO TEST",
         "type": "shell",
-        "command": "/usr/local/go/bin/go test -v",
+        "command": "go test -v",
         "group": "test",
         "options": {
-          "cwd": "${fileDirname}"
-        },
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
+          "cwd": "${workspaceFolder}"
         }
       },
       {
@@ -63,7 +47,7 @@
         "command": "git push origin --tags",
         "group": "build",
         "options": {
-          "cwd": "${fileDirname}"
+          "cwd": "${workspaceFolder}"
         }
       }
 
