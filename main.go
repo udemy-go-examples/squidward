@@ -1,26 +1,26 @@
 /*
-Hands-on exercise #70 - func return
+Hands-on exercise #71 - callback
+A “callback” is when we pass a func into a func as an argument. For this exercise,
 
-	● Create a func
-		○ which returns a func
-	■ which returns 42
-	● assign the returned func to a variable
-	● call the returned func
-	● print
+	● pass a func into a func as an argument
+		○ func square(n int) int
+		○ printSquare(f func(int)int, int) string
 */
 package main
 
 import "fmt"
 
-func main() {
+type callbackFunc func(int) int
 
-	xf := myfunc()
-	fmt.Println(xf())
+func square(n int) int {
+	return n * n
 }
 
-// returns a function
-func myfunc() func() int {
-	return func() int {
-		return 42
-	}
+func printSquare(f callbackFunc, value int) string {
+	return fmt.Sprintf("Square of %v is %v", value, f(value))
+}
+
+func main() {
+
+	fmt.Println(printSquare(square, 9))
 }
